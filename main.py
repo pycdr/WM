@@ -26,7 +26,7 @@ def main():
 		frames[int(x[:-4])] = open(join(out, x), 'r').read()
 	for x in sorted(frames.keys()):
 		print("\033[2J"+frames[x], end="")
-		sleep(.9)
+		sleep(.09)
 
 if __name__ == "__main__":
 	main()
