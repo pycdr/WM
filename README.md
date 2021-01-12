@@ -15,3 +15,9 @@ $ python3 main.py INPUT [-o OUTPUT] [--width WIDTH] [--height HEIGHT]
 where `INPUT` is the video file (e.g. **example/input.mkv**).
 
 other arguments are optional. `OUTPUT` is the folder for ouput text files (default: `./output`). `WIDTH` and `HEIGHT` define the width and height of output (default: size of terminal, where program is running there).
+
+# test
+if you want to see a preview of it or test it, you can run this command:
+```
+$ python3 main.py example/input.mkv -o example/output
+```
