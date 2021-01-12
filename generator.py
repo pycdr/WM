@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # used in text() function
-d = "█ ▓▒@MQSTli*=-,."
+d = "·!¶░║▒▓█"
 def char(number):
 	return d[number*len(d)//256]
 
