@@ -19,5 +19,5 @@ other arguments are optional. `OUTPUT` is the folder for ouput text files (defau
 # test
 if you want to see a preview of it or test it, you can run this command:
 ```
-$ python3 main.py example/input.mkv -o example/output
+$ python3 main.py example/input.mp4 -o example/output
 ```
