@@ -2,19 +2,19 @@
 WM is a video player that show it on the terminal as a text!
 
 # usage
-first, opencv must be installed:
+first, you should install its requirements:
 ```
-$ pip install opencv-python
+$ pip3 install -r requirements.txt
 ```
-*note: use `pip3` to install for python3*
+*\*note: use `pip3` to install for python3*
 
 then, run like this:
 ```
 $ python3 main.py INPUT [-o OUTPUT] [--width WIDTH] [--height HEIGHT]
 ```
-where `INPUT` is the video file (e.g. **example/input.mkv**).
+where `INPUT` is the video file (e.g. **example/input.mp4**).
 
-other arguments are optional. `OUTPUT` is the folder for ouput text files (default: `./output`). `WIDTH` and `HEIGHT` define the width and height of output (default: size of terminal, where program is running there).
+other arguments are optional. `OUTPUT` is the folder for ouput text files and audio of the video (default: `./output`). `WIDTH` and `HEIGHT` define the width and height of output (default: size of terminal, where program is running there).
 
 # test
 if you want to see a preview of it or test it, you can run this command:
