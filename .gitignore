@@ -1,2 +1,4 @@
 __pycache__/
 output/
+example/*.mp3
+example/output/
