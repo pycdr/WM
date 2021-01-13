@@ -2,7 +2,9 @@
 WM is a video player that show it on the terminal as a text!
 
 # usage
-first, you should install its requirements:
+first, be sure that you have ffmpeg, or install it (install guides for [windows](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+windows), [linux](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+linux) and [MacOS](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+MacOS))
+
+then you should install its requirements:
 ```
 $ pip3 install -r requirements.txt
 ```
