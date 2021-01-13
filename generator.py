@@ -21,11 +21,13 @@ def convert(path, output, w, h):
 		cvtColor,
 		COLOR_BGR2GRAY,
 		resize,
-		CAP_PROP_FRAME_COUNT
+		CAP_PROP_FRAME_COUNT,
+		CAP_PROP_FPS
 	)
 	from os.path import join
 	cap = VideoCapture(path)
 	count = int(cap.get(CAP_PROP_FRAME_COUNT))
+	fps = int(cap.get(CAP_PROP_FPS))
 	n = 1
 	while cap.isOpened():
 		ret, frame = cap.read()
@@ -40,6 +42,10 @@ def convert(path, output, w, h):
 		n+=1
 		print(f"converting to text files: {n*100//count}%", end='\r')
 	cap.release()
+	return {
+		"fps": fps,
+		"count": count
+	}
 
 # function which is run when the program is running
 def main():
