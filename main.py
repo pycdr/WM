@@ -1,10 +1,10 @@
 from generator import convert
+from sound import Audio, getaudio
 
 def main():
 	from argparse import ArgumentParser
-	from os import listdir, makedirs, get_terminal_size as size
+	from os import system, listdir, makedirs, get_terminal_size as size
 	from os.path import exists, join
-	from time import sleep
 
 	parser = ArgumentParser()
 	parser.add_argument("path")
@@ -20,13 +20,14 @@ def main():
 	width = args.width or size().columns
 	height = args.height or size().lines
 	
-	convert(path, out, width, height)
-	frames = {}
-	for x in listdir(out):
-		frames[int(x[:-4])] = open(join(out, x), 'r').read()
-	for x in sorted(frames.keys()):
-		print("\033[2J"+frames[x], end="")
-		sleep(.09)
+	details = convert(path, out, width, height)
+	fps = details["fps"]
+	
+	getaudio(path, join(out, "sound.mp3"))
+	audio = Audio(join(out, "sound.mp3"))
+	audio.start()
+	
+	system(f"go run reader.go {fps} {out}")
 
 if __name__ == "__main__":
 	main()
