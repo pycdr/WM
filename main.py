@@ -28,11 +28,11 @@ def main():
 	height = args.height or size().lines
 	
 	log.info("start convert proccess")
-	details = convert(path, out, width, height)
+	details = convert(path, out, width, height, log)
 	fps = details["fps"]
 	
 	log.info("extracting audio...")
-	getaudio(path, join(out, "sound.mp3"))
+	getaudio(path, join(out, "sound.mp3"), log)
 	log.info("extracted. make Audio object")
 	audio = Audio(join(out, "sound.mp3"))
 	log.info("start sound player and texts reader proccess...")

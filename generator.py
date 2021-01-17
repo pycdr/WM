@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # used in text() function
 d = "·!┼║▒▓█"
 def char(number):
@@ -15,7 +13,8 @@ def text(array):
 	return out
 
 # convert function (video -> TXTs)
-def convert(path, output, w, h):
+def convert(path, output, w, h, log):
+	log.info("importing...")
 	from cv2 import (
 		VideoCapture,
 		cvtColor,
@@ -25,10 +24,13 @@ def convert(path, output, w, h):
 		CAP_PROP_FPS
 	)
 	from os.path import join
+	log.info("create VideoCapture object...")
 	cap = VideoCapture(path)
+	log.info("get details of video...")
 	count = int(cap.get(CAP_PROP_FRAME_COUNT))
 	fps = int(cap.get(CAP_PROP_FPS))
 	n = 1
+	log.info("start convert loop")
 	while cap.isOpened():
 		ret, frame = cap.read()
 		if not ret:
@@ -41,6 +43,7 @@ def convert(path, output, w, h):
 			f.close()
 		n+=1
 		print(f"converting to text files: {n*100//count}%", end='\r')
+	log.info("converting finished. release VideoCapture")
 	cap.release()
 	return {
 		"fps": fps,

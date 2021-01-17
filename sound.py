@@ -1,6 +1,7 @@
-def getaudio(path, output = "output.mp3"):
+def getaudio(path, output, log):
 	from os import system
-	print("get sound...")
+	print("~ sound exporter...")
+	log.info("start ffmpeg to extract audio...")
 	system(f"ffmpeg -i {path} -acodec libmp3lame -loglevel quiet -metadata TITLE=\"from WM player\" {output}")
 
 from threading import Thread
