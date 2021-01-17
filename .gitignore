@@ -1,4 +1,10 @@
+# python caches
 __pycache__/
+
+# outputs
 output/
 example/*.mp3
 example/output/
+
+# logs
+report.log

@@ -1,2 +1,3 @@
 opencv-python==3.4.5.20
 playsound==1.2.2
+rich==9.8.2
