@@ -9,13 +9,17 @@ WM is a video player that show it on the terminal as a text!
 sudo apt install sox
 sudo apt install libsox-fmt-mp3
 ```
-3. then, you should install its requirements:
+3. if your `pip` version is less than **19.3**, you should update:
 ```
-$ pip3 install -r requirements.txt
+pip install --upgrade pip
+```
+4. then, you should install its requirements:
+```
+$ pip install -r requirements.txt
 ```
 
 note: 
-- use `pip3` to install for python3
+- use `pip3` to install for python3, if it makes problem.
 - you may need to install `python3-opencv` with your package manager (e.g. `apt install python3-opencv`)
 
 # Usage
