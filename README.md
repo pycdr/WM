@@ -2,6 +2,7 @@
 WM is a video player that show it on the terminal as a text!
 
 # Installation
+0. be sure that you have installed `python3` and `go`.
 1. first, you have to install `ffmpeg` (install guides for [windows](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+windows), [linux](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+linux) and [MacOS](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+MacOS))
 
 2. then, you should install its requirements:
@@ -10,7 +11,7 @@ $ pip3 install -r requirements.txt
 ```
 
 note: 
-- if you are using linux, you should install `pygobject`. read [here](https://pygobject.readthedocs.io/en/latest/getting_started.html)
+- if you are using linux, you will have `pygobject`. if there's any issue with that (e.g. `no module named gi`), it may need some other dependencies for your OS. read [its document](https://pygobject.readthedocs.io/en/latest/getting_started.html). also [this link](https://askubuntu.com/questions/80448/what-would-cause-the-gi-module-to-be-missing-from-python) can be helpful too (thank to @lnxpy).
 - use `pip3` to install for python3
 - you may need to install `python3-opencv` with your package manager (e.g. `apt install python3-opencv`)
 
