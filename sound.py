@@ -19,6 +19,5 @@ class Audio:
 		self.thread = Thread(target = self.play, args=())
 		self.thread.start()
 	def play(self):
-		sleep(.1)
-		system("play "+self.path)
+		system("play "+self.path+" >/dev/null 2>&1")
 		#playsound(self.path)
