@@ -5,15 +5,20 @@ def getaudio(path, output, log):
 	system(f"ffmpeg -i {path} -acodec libmp3lame -loglevel quiet -metadata TITLE=\"from WM player\" {output}")
 
 from threading import Thread
-from playsound import playsound
+#from playsound import playsound
+from os import system
+from os.path import exists
 from time import sleep
 
 class Audio:
 	def __init__(self, path):
 		self.path = path
 	def start(self):
+		if not exists(self.path):
+			return
 		self.thread = Thread(target = self.play, args=())
 		self.thread.start()
 	def play(self):
 		sleep(.1)
-		playsound(self.path)
+		system("play "+self.path)
+		#playsound(self.path)
