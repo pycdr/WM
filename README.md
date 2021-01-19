@@ -1,6 +1,6 @@
 # WM
 WM is a video player that show it on the terminal as a text!
-
+![example of using WM](https://github.com/pycdr/WM/blob/main/example/result.gif)
 # Installation
 0. be sure that you have installed `python3` and `go`.
 1. first, you have to install `ffmpeg` (install guides for [windows](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+windows), [linux](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+linux) and [MacOS](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+MacOS))
