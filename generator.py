@@ -1,5 +1,5 @@
 # used in text() function
-d = "·!┼║▒▓█"
+d = " ·!┼║▒▓█"
 def char(number):
 	return d[number*len(d)//256]
 
