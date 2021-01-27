@@ -1,6 +1,10 @@
 # WM
-WM is a video player that show it on the terminal as a text!
-![example of using WM](https://github.com/pycdr/WM/blob/main/example/result.gif)
+
+<div align="center">
+<img src="https://github.com/pycdr/WM/blob/main/logo.png?raw=true" alt="WM logo" width="50%" style="align-left: 25%;" />
+  <br /><p>WM is a video player that show it on the terminal as a text!</p>
+</div>
+
 # Installation
 0. be sure that you have installed `python3` and `go`.
 1. first, you have to install `ffmpeg` (install guides for [windows](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+windows), [linux](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+linux) and [MacOS](http://letmegooglethat.com/?q=how+to+install+ffmpeg+on+MacOS))
@@ -23,6 +27,7 @@ note:
 - you may need to install `python3-opencv` with your package manager (e.g. `apt install python3-opencv`)
 
 # Usage
+![example of using WM](https://github.com/pycdr/WM/blob/main/example/result.gif)
 
 you can run like this:
 ```
