@@ -14,6 +14,7 @@ def main():
 	parser.add_argument("-o", "--out", required = False)
 	parser.add_argument("--width", type = int, required = False)
 	parser.add_argument("--height", type = int, required = False)
+	parser.add_argument("-c", "--color", action = "store_true")
 	args = parser.parse_args()
 	log.info("parsed")
 	
@@ -28,7 +29,7 @@ def main():
 	height = args.height or size().lines
 	
 	log.info("start convert proccess")
-	details = convert(path, out, width, height, log)
+	details = convert(path, out, width, height, log, args.color)
 	fps = details["fps"]
 	
 	log.info("extracting audio...")
@@ -38,7 +39,7 @@ def main():
 	log.info("start sound player and texts reader proccess...")
 	
 	audio.start()
-	system(f"go run reader.go {fps} {out}")
+	system(f"go run reader.go {fps} {out} {int(args.color)}")
 
 if __name__ == "__main__":
 	main()

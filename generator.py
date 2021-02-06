@@ -1,4 +1,4 @@
-# used in text() function
+# used in <text> and < function
 d = " ·!┼║▒▓█"
 def char(number):
 	return d[number*len(d)//256]
@@ -12,8 +12,25 @@ def text(array):
 		out += "\n"
 	return out
 
+# like <text> function, but render coloring output!
+def colorhex(array):
+	l = [hex(x)[2:] for x in array]
+	l = [(x+"0" if len(x)<2 else x) for x in l]
+	return "".join(l)
+
+def ctext(array):
+	out = ""
+	for x in array:
+		for y in x:
+			c = colorhex(y)
+			out += c
+			d = sum(y)//3
+			out += char(d)
+		out += "\n"
+	return out
+
 # convert function (video -> TXTs)
-def convert(path, output, w, h, log):
+def convert(path, output, w, h, log, color):
 	log.info("importing...")
 	from cv2 import (
 		VideoCapture,
@@ -31,13 +48,15 @@ def convert(path, output, w, h, log):
 	fps = int(cap.get(CAP_PROP_FPS))
 	n = 1
 	log.info("start convert loop")
+	func = ctext if color else text
 	while cap.isOpened():
 		ret, frame = cap.read()
 		if not ret:
 			break
-		gray = cvtColor(frame, COLOR_BGR2GRAY)
-		out = resize(gray, (w, h))
-		txt = text(out)
+		if not color:
+			frame = cvtColor(frame, COLOR_BGR2GRAY)
+		out = resize(frame, (w, h))
+		txt = func(out)
 		with open(join(output, str(n)+".txt"), "w+") as f:
 			f.write(txt)
 			f.close()
