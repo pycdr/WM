@@ -16,7 +16,7 @@ def text(array):
 def colorhex(array):
 	l = [hex(x)[2:] for x in array]
 	l = [(x+"0" if len(x)<2 else x) for x in l]
-	return "".join(l)
+	return "".join(l[::-1])
 
 def ctext(array):
 	out = ""
@@ -24,8 +24,9 @@ def ctext(array):
 		for y in x:
 			c = colorhex(y)
 			out += c
-			d = sum(y)//3
-			out += char(d)
+			#d = sum(y)//3
+			#out += char(d)
+			out += "█"
 		out += "\n"
 	return out
 
