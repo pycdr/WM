@@ -26,7 +26,7 @@ def ctext(array):
 			out += c
 			#d = sum(y)//3
 			#out += char(d)
-			out += "█"
+			#out += "█"
 		out += "\n"
 	return out
 

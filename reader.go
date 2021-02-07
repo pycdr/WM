@@ -57,6 +57,7 @@ func outfc(path string) {
 		if chr == "\n" {
 			fmt.Print("\n")
 		} else {
+			/*
 			if i == 0 {
 				outn,_ := strconv.ParseInt(chr, 16, 64)
 				rnum += 16*int(outn)
@@ -83,6 +84,32 @@ func outfc(path string) {
 				bnum = 0
 			}
 			i = (i+1)%7
+			*/
+			if i == 0 {
+				outn,_ := strconv.ParseInt(chr, 16, 64)
+				rnum += 16*int(outn)
+			} else if i == 1 {
+				outn,_ := strconv.ParseInt(chr, 16, 64)
+				rnum += int(outn)
+			} else if i == 2 {
+				outn,_ := strconv.ParseInt(chr, 16, 64)
+				gnum += 16*int(outn)
+			} else if i == 3 {
+				outn,_ := strconv.ParseInt(chr, 16, 64)
+				gnum += int(outn)
+			} else if i == 4 {
+				outn,_ := strconv.ParseInt(chr, 16, 64)
+				bnum += 16*int(outn)
+			} else {
+				outn,_ := strconv.ParseInt(chr, 16, 64)
+				bnum += int(outn)
+				fmt.Printf("\033[38;2;%d;%d;%dm%s",rnum, gnum, bnum, "█");
+				//fmt.Print(c)
+				rnum = 0
+				gnum = 0
+				bnum = 0
+			}
+			i = (i+1)%6
 		}
 	}
 }
