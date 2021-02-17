@@ -26,7 +26,7 @@ def main():
 		log.warning("output path is existing. text files will be overwritten.")
 	log.info("set width and height of output...")
 	width = args.width or size().columns
-	height = args.height or size().lines
+	height = args.height or size().lines - 1
 	
 	log.info("start convert proccess")
 	details = convert(path, out, width, height, log, args.color)

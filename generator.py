@@ -58,7 +58,7 @@ def convert(path, output, w, h, log, color):
 			frame = cvtColor(frame, COLOR_BGR2GRAY)
 		out = resize(frame, (w, h))
 		txt = func(out)
-		with open(join(output, str(n)+".txt"), "w+") as f:
+		with open(join(output, str(n)+".frm"), "w+") as f:
 			f.write(txt)
 			f.close()
 		n+=1
