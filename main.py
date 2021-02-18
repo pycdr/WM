@@ -44,7 +44,8 @@ def main():
 	
 	if not args.save:
 		log.info("removing files...")
-		remove(join(out,"sound.mp3"))
+		if exists(join(out, "sound.mp3")):
+			remove(join(out,"sound.mp3"))
 		for x in range(1,details["count"]+1):
 			remove(join(out, str(x)+".frm"))
 
