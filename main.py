@@ -4,7 +4,7 @@ def main():
 	from generator import convert
 	from sound import Audio, getaudio
 	from argparse import ArgumentParser
-	from os import system, listdir, makedirs, get_terminal_size as size
+	from os import system, listdir, makedirs, remove, get_terminal_size as size
 	from os.path import exists, join
 	log.info("imported")
 	
@@ -15,6 +15,7 @@ def main():
 	parser.add_argument("--width", type = int, required = False)
 	parser.add_argument("--height", type = int, required = False)
 	parser.add_argument("-c", "--color", action = "store_true")
+	parser.add_argument("-s", "--save", action = "store_true")
 	args = parser.parse_args()
 	log.info("parsed")
 	
@@ -40,6 +41,12 @@ def main():
 	
 	audio.start()
 	system(f"go run reader.go {fps} {out} {int(args.color)}")
+	
+	if not args.save:
+		log.info("removing files...")
+		remove(join(out,"sound.mp3"))
+		for x in range(1,details["count"]+1):
+			remove(join(out, str(x)+".frm"))
 
 if __name__ == "__main__":
 	main()
