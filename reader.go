@@ -2,121 +2,73 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
 	"os"
-	"log"
-	"time"
-	"strconv"
+	"os/exec"
+	"path/filepath"
 	"sort"
+	"strconv"
+	"strings"
+	"time"
 )
 
-type list_sort []string;
-func (s list_sort) Len() int {
-	return len(s)
-}
+type list_sort []string
+
+func (s list_sort) Len() int { return len(s) }
 func (s list_sort) Less(i, j int) bool {
-	namei := filepath.Base(s[i])
-	namej := filepath.Base(s[j])
-	numi, erri := strconv.Atoi(namei[:len(namei)-4])
-	if erri != nil {
-		panic(erri);
-	}
-	numj, errj := strconv.Atoi(namej[:len(namej)-4])
-	if erri != nil {
-		panic(errj);
-	}
-	return numi < numj
+	ni, _ := strconv.Atoi(strings.TrimSuffix(filepath.Base(s[i]), ".frm"))
+	nj, _ := strconv.Atoi(strings.TrimSuffix(filepath.Base(s[j]), ".frm"))
+	return ni < nj
 }
-func (s list_sort) Swap (i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-
-func outf(path string) {
-	frame, err := ioutil.ReadFile(path)
-	if err != nil {
-		panic(err);
-	}
-	fmt.Print("\033[2J")
-	fmt.Print(string(frame))
-}
-
-func outfc(path string) {
-	frame, err := ioutil.ReadFile(path)
-	if err != nil {
-		panic(err);
-	}
-	//fmt.Print("\033[2J")
-	fmt.Print("\033[0;0H")
-	var i int = 0
-	var rnum int
-	var gnum int
-	var bnum int
-	for _, c := range string(frame) {
-		chr := string(c)
-		if chr == "\n" {
-			fmt.Print("\n")
-		} else {
-			if i == 0 {
-				outn,_ := strconv.ParseInt(chr, 16, 64)
-				rnum += 16*int(outn)
-			} else if i == 1 {
-				outn,_ := strconv.ParseInt(chr, 16, 64)
-				rnum += int(outn)
-			} else if i == 2 {
-				outn,_ := strconv.ParseInt(chr, 16, 64)
-				gnum += 16*int(outn)
-			} else if i == 3 {
-				outn,_ := strconv.ParseInt(chr, 16, 64)
-				gnum += int(outn)
-			} else if i == 4 {
-				outn,_ := strconv.ParseInt(chr, 16, 64)
-				bnum += 16*int(outn)
-			} else {
-				outn,_ := strconv.ParseInt(chr, 16, 64)
-				bnum += int(outn)
-				fmt.Printf("\033[38;2;%d;%d;%dm%s",rnum, gnum, bnum, "█");
-				rnum = 0
-				gnum = 0
-				bnum = 0
-			}
-			i = (i+1)%6
-		}
-	}
-}
+func (s list_sort) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
 
 func main() {
-	dpath := os.Args[2]
+	if len(os.Args) < 4 {
+		fmt.Fprintln(os.Stderr, "Usage: reader <fps> <output_dir> <color_flag>")
+		os.Exit(1)
+	}
+
 	fps, _ := strconv.Atoi(os.Args[1])
-	files, err := filepath.Glob(filepath.Join(dpath, "*.frm"))
+	outputDir := os.Args[2]
 	color, _ := strconv.Atoi(os.Args[3])
+
+	files, err := filepath.Glob(filepath.Join(outputDir, "*.frm"))
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, "Glob error:", err)
+		os.Exit(1)
 	}
 	sort.Sort(list_sort(files))
-	tempc := make(chan bool)
-	stopt := time.Second/time.Duration(fps)
-	stopc := time.Duration(0)
-	if color == 1 {
-		for _, f := range files {
-			go func(){
-				outfc(f)
-				tempc <- true
-			}()
-			t := time.Now()
-			select {
-				case <- tempc :
-					time.Sleep(stopt - time.Now().Sub(t))
-					stopc = 0
-				case <- time.After(stopt - stopc):
-					stopc = stopt - time.Now().Sub(t)
+
+	if len(files) == 0 {
+		fmt.Fprintln(os.Stderr, "No .frm files found in", outputDir)
+		os.Exit(1)
+	}
+
+	frameDelay := time.Second / time.Duration(fps)
+
+	for _, f := range files {
+		start := time.Now()
+
+		if color == 1 {
+			// Use 'cat' for faster colored output
+			cmd := exec.Command("cat", f)
+			cmd.Stdout = os.Stdout
+			cmd.Run()
+			// Reset color and move cursor to top-left
+			fmt.Print("\033[0m\033[;H")
+		} else {
+			// For monochrome, clear screen and print
+			data, err := os.ReadFile(f)
+			if err != nil {
+				continue
 			}
+			fmt.Print("\033[2J\033[H")
+			fmt.Print(string(data))
 		}
-	} else {
-		for _, f := range files {
-			outf(f)
-			time.Sleep(time.Second/time.Duration(fps))
+
+		elapsed := time.Since(start)
+		remaining := frameDelay - elapsed
+		if remaining > 0 {
+			time.Sleep(remaining)
 		}
 	}
-	
 }

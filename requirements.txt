@@ -1,2 +1,2 @@
-opencv-python==4.5.1.48
-rich==9.8.2
+opencv-python>=4.10.0
+rich>=13.9.4
